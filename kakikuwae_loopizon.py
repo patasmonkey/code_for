@@ -12,6 +12,7 @@ tree=ET.parse('test.xml')
 root=tree.getroot()
 n_root=ET.Element('root')
 
+
 line1=[]
 line2=[]
 for e in root.getiterator():
