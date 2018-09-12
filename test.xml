@@ -1,15 +1,10 @@
-<?xml version="1.0" ?>
-<root>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XcodeProgram>
   <sub>
-    
-    
-    <pragma lineno="9">acc karnels</pragma>
-    <forStatement file="a.c" lineno="10">
-      
-      
+    <forStatement lineno="9" file="a.c">
       <subsub key="value" key2="value2">text</subsub>
       <subsub2 key2="value2">text2</subsub2>
     </forStatement>
   </sub>
   <aa>text</aa>
-</root>
+</XcodeProgram>
