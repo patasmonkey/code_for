@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<root>
+<XcodeProgram>
   <typeTable>
     
     
@@ -11622,7 +11622,8 @@
                         </compoundStatement>
                       </body>
                     </forStatement>
-                    <forStatement file="a.c" lineno="19" praflag="10">
+                    <pragma lineno="19">acc karnels</pragma>
+                    <forStatement file="a.c" lineno="20">
                       
                       
                       <init>
@@ -11657,7 +11658,7 @@
                       <body>
                         
                         
-                        <compoundStatement file="a.c" lineno="19">
+                        <compoundStatement file="a.c" lineno="20">
                           
                           
                           <symbols/>
@@ -11665,7 +11666,7 @@
                           <body>
                             
                             
-                            <forStatement file="a.c" lineno="20" praflag="14">
+                            <forStatement file="a.c" lineno="21">
                               
                               
                               <init>
@@ -11700,7 +11701,7 @@
                               <body>
                                 
                                 
-                                <compoundStatement file="a.c" lineno="20">
+                                <compoundStatement file="a.c" lineno="21">
                                   
                                   
                                   <symbols/>
@@ -11708,7 +11709,7 @@
                                   <body>
                                     
                                     
-                                    <exprStatement file="a.c" lineno="21">
+                                    <exprStatement file="a.c" lineno="22">
                                       
                                       
                                       <asgPlusExpr type="int">
@@ -11740,12 +11741,12 @@
                 </compoundStatement>
               </body>
             </forStatement>
-            <statementLabel file="a.c" lineno="25">
+            <statementLabel file="a.c" lineno="26">
               
               
               <name>p</name>
             </statementLabel>
-            <exprStatement file="a.c" lineno="27">
+            <exprStatement file="a.c" lineno="28">
               
               
               <functionCall type="int">
@@ -11764,7 +11765,7 @@
                 </arguments>
               </functionCall>
             </exprStatement>
-            <returnStatement file="a.c" lineno="28">
+            <returnStatement file="a.c" lineno="29">
               
               
               <intConstant type="int">0</intConstant>
@@ -11774,4 +11775,4 @@
       </body>
     </functionDefinition>
   </globalDeclarations>
-</root>
+</XcodeProgram>

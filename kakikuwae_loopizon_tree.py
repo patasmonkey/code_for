@@ -10,8 +10,8 @@ import pickle
 import codecs
 tree=ET.parse('a.xml')
 root=tree.getroot()
-n_root=ET.Element('root')
-shu_root=ET.Element('root')
+n_root=ET.Element('XcodeProgram')
+shu_root=ET.Element('XcodeProgram')
 
 IO=["getchar","gets","fgets","scanf","fputc","putc","putchar","fputs","puts","fprintf","printf"]
 
@@ -41,21 +41,6 @@ for e in root.getiterator():
                 line2.append(0)
 
 parent_map=dict((c,p)for p in tree.getiterator() for c in p)
-
-
-def mini_clook_up(cele,mc_root):#pragma gaareba 1
-    print ("bbb  "+cele.tag+":"+parent_map.get(cele).tag)
-    print(list(mc_root))
-    for e in mc_root.getiterator():
-        print(e)
-    if(parent_map.get(cele).tag == "forStatement"):
-        for l in parent_map.get(parent_map.get(cele)):
-            if(l.tag=="pragma"):
-                return 1
-    elif(parent_map.get(cele).tag == "XcodeProgram"):
-        return 0
-    return mini_clook_up(parent_map.get(cele),mc_root)
-
 
 def funkcall_body(fele,fn_root):
     for e in list(fele):
@@ -116,10 +101,10 @@ def hantei(ele,ch_root,hkaisou):#pragma in or out
         # sub.set('lineno',str(yan+line2[sw]))
         # sub.text="acc karnels"
         # line2[sw]+=1
-        # print("one_in!")
+        print("ya_one_in!")
           
 
-def itmm(ele,i_root):
+def itmm(ele,i_root,ff):
     global line1
     global line2
     a=ele.items()
@@ -134,8 +119,8 @@ def itmm(ele,i_root):
         if(b[0]=='lineno'):
             asd=int(b[1])
             i_root.set(b[0],str(line2[sw]+asd))
-        elif(b[0]=='pragma'):
-            
+        elif(b[0]=='praflag' and ff==2):
+            b=b
         else:
             i_root.set(b[0],b[1])
          
@@ -144,7 +129,7 @@ def clook(ele,child_root,ckaisou):
     hantei(ele,child_root,ckaisou)
     child_root=ET.SubElement(child_root,ele.tag)
     if(ele.items()):
-        itmm(ele,child_root)
+        itmm(ele,child_root,1)
     child_root.text=ele.text
     for e in list(ele):
         clook(e,child_root,ckaisou+1)        
@@ -153,14 +138,40 @@ def clook(ele,child_root,ckaisou):
 for ele in list(root):
     clook(ele,n_root,kaisou+1)
 
-def ku_pospra(ele,ku_pospra):
-    return
+
+string = ET.tostring(n_root, 'utf-8')
+pretty_string = minidom.parseString(string).toprettyxml(indent='  ')
+with open('output_ce.xml','w')as f:
+    #f.write(st)
+    f.write(pretty_string)
+
+
+
+
+
+
     
-def ku_hantei(ele,ch_root,hkaisou):#pragma in or out
+
+parent_map_=dict((c,p)for p in n_root.getiterator() for c in p)
+    
+def mini_clook_up(ku_cele,mc_root):#pragma gaareba 1
+    #print ("aaa  "+ku_cele.tag+":"+parent_map_.get(ku_cele).tag)
+    if(parent_map_.get(ku_cele).tag == "forStatement"):
+     #   print("zzzz")
+        a=parent_map_.get(ku_cele).items()
+        for b in a:
+            if(b[0]=='praflag'): 
+                return 0
+    elif(parent_map_.get(ku_cele).tag == "XcodeProgram"):
+        return 1
+    return mini_clook_up(parent_map_.get(ku_cele),mc_root)
+
+def ku_hantei(ele,ch_root):#pragma in or out
     global line1
     global line2
     a=ele.items()
     sw=yan=0
+    ff=0
     for b in a:
         if(b[0]=='file'):
             for sw,c in enumerate(line1):
@@ -168,20 +179,21 @@ def ku_hantei(ele,ch_root,hkaisou):#pragma in or out
                     break
         if(b[0]=='lineno'):
             yan=int(b[1])
-            
-    if(ele.tag=="forStatement" and ku_pospra(ele,ch_root)==1):#can 1
-        #ele.set("praflag",str(hkaisou))
+        if(b[0]=='praflag'):
+            ff=1
+    if(ele.tag=="forStatement" and mini_clook_up(ele,ch_root)==1 and ff==1):#can 1
         sub=ET.SubElement(ch_root,'pragma')
         sub.set('lineno',str(yan+line2[sw]))
         sub.text="acc karnels"
         line2[sw]+=1
         print("one_in!")
 
+
 def kuwaeru(ele,child_root):
-    ku_hantei(ele,child_root,ckaisou)
+    ku_hantei(ele,child_root)
     child_root=ET.SubElement(child_root,ele.tag)
     if(ele.items()):
-        itmm(ele,child_root)
+        itmm(ele,child_root,2)
     child_root.text=ele.text
     for e in list(ele):
         kuwaeru(e,child_root)        
@@ -189,7 +201,7 @@ def kuwaeru(ele,child_root):
 for ele in list(n_root):
     kuwaeru(ele,shu_root)
     
-string = ET.tostring(n_root, 'utf-8')
+string = ET.tostring(shu_root, 'utf-8')
 pretty_string = minidom.parseString(string).toprettyxml(indent='  ')
 with open('output.xml','w')as f:
     #f.write(st)
