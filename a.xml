@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<XcodeProgram source="a.c" language="C" time="2018-09-12 17:09:29"
+<XcodeProgram source="a.c" language="C" time="2018-09-13 13:46:48"
               compiler-info="XcodeML/C-FrontEnd" version="1.3.0">
   <typeTable>
     <basicType type="B0" is_const="1" name="char"/>
@@ -7010,6 +7010,9 @@
             <id type="A54" sclass="auto">
               <name>d</name>
             </id>
+            <id type="int" sclass="auto">
+              <name>k</name>
+            </id>
           </symbols>
           <declarations>
             <varDecl lineno="8" file="a.c">
@@ -7032,6 +7035,9 @@
             </varDecl>
             <varDecl lineno="8" file="a.c">
               <name>d</name>
+            </varDecl>
+            <varDecl lineno="8" file="a.c">
+              <name>k</name>
             </varDecl>
           </declarations>
           <body>
@@ -7272,18 +7278,45 @@
                           <symbols/>
                           <declarations/>
                           <body>
-                            <exprStatement lineno="20" file="a.c">
-                              <assignExpr type="int">
-                                <arrayRef type="int">
-                                  <arrayAddr type="A52" scope="local">c</arrayAddr>
-                                  <Var type="int" scope="local">j</Var>
-                                </arrayRef>
-                                <arrayRef type="int">
-                                  <arrayAddr type="A51" scope="local">b</arrayAddr>
-                                  <Var type="int" scope="local">j</Var>
-                                </arrayRef>
-                              </assignExpr>
-                            </exprStatement>
+                            <forStatement lineno="20" file="a.c">
+                              <init>
+                                <assignExpr type="int">
+                                  <Var type="int" scope="local">k</Var>
+                                  <intConstant type="int">0</intConstant>
+                                </assignExpr>
+                              </init>
+                              <condition>
+                                <logLTExpr type="int">
+                                  <Var type="int" scope="local">k</Var>
+                                  <intConstant type="int">10</intConstant>
+                                </logLTExpr>
+                              </condition>
+                              <iter>
+                                <postIncrExpr type="int">
+                                  <Var type="int" scope="local">k</Var>
+                                </postIncrExpr>
+                              </iter>
+                              <body>
+                                <compoundStatement lineno="20" file="a.c">
+                                  <symbols/>
+                                  <declarations/>
+                                  <body>
+                                    <exprStatement lineno="21" file="a.c">
+                                      <asgPlusExpr type="int">
+                                        <arrayRef type="int">
+                                          <arrayAddr type="A52" scope="local">c</arrayAddr>
+                                          <Var type="int" scope="local">j</Var>
+                                        </arrayRef>
+                                        <arrayRef type="int">
+                                          <arrayAddr type="A51" scope="local">b</arrayAddr>
+                                          <Var type="int" scope="local">k</Var>
+                                        </arrayRef>
+                                      </asgPlusExpr>
+                                    </exprStatement>
+                                  </body>
+                                </compoundStatement>
+                              </body>
+                            </forStatement>
                           </body>
                         </compoundStatement>
                       </body>
@@ -7292,10 +7325,10 @@
                 </compoundStatement>
               </body>
             </forStatement>
-            <statementLabel lineno="23" file="a.c">
+            <statementLabel lineno="25" file="a.c">
               <name>p</name>
             </statementLabel>
-            <exprStatement lineno="25" file="a.c">
+            <exprStatement lineno="27" file="a.c">
               <functionCall type="int">
                 <function>
                   <funcAddr type="P399">printf</funcAddr>
@@ -7306,7 +7339,7 @@
                 </arguments>
               </functionCall>
             </exprStatement>
-            <returnStatement lineno="26" file="a.c">
+            <returnStatement lineno="28" file="a.c">
               <intConstant type="int">0</intConstant>
             </returnStatement>
           </body>

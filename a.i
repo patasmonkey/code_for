@@ -1937,7 +1937,7 @@ int yan(int a){
   return (yan(a-1)+a+1)%2;
 }
 int main(){
-  int i,j,a=0,b[10],c[10],d[10][10];
+  int i,j,a=0,b[10],c[10],d[10][10],k;
   for(i=0;i<10;i++){
     c[i]=i;
     scanf("%d",&b[i]);
@@ -1949,7 +1949,9 @@ int main(){
       if(d[i][j]<100)return 1;
     }
     for(j=0;j<10;j++){
-      c[j]=b[j];
+      for(k=0;k<10;k++){
+ c[j]+=b[k];
+      }
     }
   }
   p:

@@ -11,11 +11,14 @@ import codecs
 tree=ET.parse('a.xml')
 root=tree.getroot()
 n_root=ET.Element('root')
+shu_root=ET.Element('root')
 
 IO=["getchar","gets","fgets","scanf","fputc","putc","putchar","fputs","puts","fprintf","printf"]
 
 TAG=["body","exprStatement","functionCall","function","funcAddr"]
 TAG1=["breakStatement","returnStatement","gotoStatement","statementLabel"]
+
+kaisou=0
 
 #st="<yanyan>\n"
 
@@ -87,14 +90,14 @@ def pospra(ele,pos_root):#for no nakami
         if(funkcall(e,pos_root)==1):#kiken innshi ga aru 1
             f=0
 
-    if(f==1):
-        if(mini_clook_up(ele,pos_root)==1):
-            f=0
+    # if(f==1):
+    #     if(mini_clook_up(ele,pos_root)==1):
+    #         f=0
         
     return f #ireteyoi nara 1 damenara 0
 
 
-def hantei(ele,ch_root):#pragma in or out
+def hantei(ele,ch_root,hkaisou):#pragma in or out
     global line1
     global line2
     a=ele.items()
@@ -108,11 +111,12 @@ def hantei(ele,ch_root):#pragma in or out
             yan=int(b[1])
             
     if(ele.tag=="forStatement" and pospra(ele,ch_root)==1):#can 1
-        sub=ET.SubElement(ch_root,'pragma')
-        sub.set('lineno',str(yan+line2[sw]))
-        sub.text="acc karnels"
-        line2[sw]+=1
-        print("in!")
+        ele.set("praflag",str(hkaisou))
+        # sub=ET.SubElement(ch_root,'pragma')
+        # sub.set('lineno',str(yan+line2[sw]))
+        # sub.text="acc karnels"
+        # line2[sw]+=1
+        # print("one_in!")
           
 
 def itmm(ele,i_root):
@@ -130,24 +134,25 @@ def itmm(ele,i_root):
         if(b[0]=='lineno'):
             asd=int(b[1])
             i_root.set(b[0],str(line2[sw]+asd))
+        elif(b[0]=='pragma'):
+            a=a
         else:
             i_root.set(b[0],b[1])
          
-    
 
-def clook(ele,child_root):
-    hantei(ele,child_root)
+def clook(ele,child_root,ckaisou):
+    hantei(ele,child_root,ckaisou)
     child_root=ET.SubElement(child_root,ele.tag)
     if(ele.items()):
         itmm(ele,child_root)
     child_root.text=ele.text
     for e in list(ele):
-        clook(e,child_root)        
+        clook(e,child_root,ckaisou+1)        
 
 
 for ele in list(root):
-    clook(ele,n_root)
-    
+    clook(ele,n_root,kaisou+1)
+   
 string = ET.tostring(n_root, 'utf-8')
 pretty_string = minidom.parseString(string).toprettyxml(indent='  ')
 with open('output.xml','w')as f:
